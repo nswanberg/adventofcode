@@ -10,13 +10,16 @@ print(sum([abs(med-i) for i in positions]))
 
 # Pt 2
 avg = round(sum(positions)/len(positions))
-
+print(f"avg: {avg}")
 min = sum([(abs(avg-i)*(abs(avg-i)+1)//2) for i in positions])
-for j in range(max(positions)):
+pos=0
+for n,j in enumerate(range(max(positions))):
     s = sum([(abs(j-i)*(abs(j-i)+1)//2) for i in positions])
     if s < min:
         min = s
-print(f"min: {min}")
+        pos=n
+
+print(f"min: {min} pos:{n}")
 
 
 
