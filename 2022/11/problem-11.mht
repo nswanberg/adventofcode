@@ -1,0 +1,785 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: https://adventofcode.com/2022/day/11
+Subject: Day 11 - Advent of Code 2022
+Date: Mon, 12 Dec 2022 00:01:09 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--h4mZxXGGaN61rHhq6CBHzMSI8KrbjA7vKBdABGZHOq----"
+
+
+------MultipartBoundary--h4mZxXGGaN61rHhq6CBHzMSI8KrbjA7vKBdABGZHOq----
+Content-Type: text/html
+Content-ID: <frame-4F4593907D9E400486CC4B3DADF5C216@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://adventofcode.com/2022/day/11
+
+<!DOCTYPE html><html lang=3D"en-us"><head><meta http-equiv=3D"Content-Type"=
+ content=3D"text/html; charset=3DUTF-8">
+
+<title>Day 11 - Advent of Code 2022</title>
+<!--[if lt IE 9]><script src=3D"/static/html5.js"></script><![endif]-->
+<link href=3D"https://fonts.googleapis.com/css?family=3DSource+Code+Pro:300=
+&amp;subset=3Dlatin,latin-ext" rel=3D"stylesheet" type=3D"text/css">
+<link rel=3D"stylesheet" type=3D"text/css" href=3D"https://adventofcode.com=
+/static/style.css?30">
+<link rel=3D"stylesheet alternate" type=3D"text/css" href=3D"https://advent=
+ofcode.com/static/highcontrast.css?0" title=3D"High Contrast">
+<link rel=3D"shortcut icon" href=3D"https://adventofcode.com/favicon.png">
+
+</head><!--
+
+
+
+
+Oh, hello!  Funny seeing you here.
+
+I appreciate your enthusiasm, but you aren't going to find much down here.
+There certainly aren't clues to any of the puzzles.  The best surprises don=
+'t
+even appear in the source until you unlock them for real.
+
+Please be careful with automated requests; I'm not a massive company, and I=
+ can
+only take so much traffic.  Please be considerate so that everyone gets to =
+play.
+
+If you're curious about how Advent of Code works, it's running on some cust=
+om
+Perl code. Other than a few integrations (auth, analytics, social media), I
+built the whole thing myself, including the design, animations, prose, and =
+all
+of the puzzles.
+
+The puzzles are most of the work; preparing a new calendar and a new set of
+puzzles each year takes all of my free time for 4-5 months. A lot of effort
+went into building this thing - I hope you're enjoying playing it as much a=
+s I
+enjoyed making it for you!
+
+If you'd like to hang out, I'm @ericwastl on Twitter.
+
+- Eric Wastl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+<body>
+<header><div><h1 class=3D"title-global"><a href=3D"https://adventofcode.com=
+/">Advent of Code</a></h1><nav><ul><li><a href=3D"https://adventofcode.com/=
+2022/about">[About]</a></li><li><a href=3D"https://adventofcode.com/2022/ev=
+ents">[Events]</a></li><li><a href=3D"https://teespring.com/stores/advent-o=
+f-code" target=3D"_blank">[Shop]</a></li><li><a href=3D"https://adventofcod=
+e.com/2022/settings">[Settings]</a></li><li><a href=3D"https://adventofcode=
+.com/2022/auth/logout">[Log Out]</a></li></ul></nav><div class=3D"user">Nat=
+e Swanberg <span class=3D"star-count">12*</span></div></div><div><h1 class=
+=3D"title-event">&nbsp;&nbsp;<span class=3D"title-event-wrap">{:year </span=
+><a href=3D"https://adventofcode.com/2022">2022</a><span class=3D"title-eve=
+nt-wrap">}</span></h1><nav><ul><li><a href=3D"https://adventofcode.com/2022=
+">[Calendar]</a></li><li><a href=3D"https://adventofcode.com/2022/support">=
+[AoC++]</a></li><li><a href=3D"https://adventofcode.com/2022/sponsors">[Spo=
+nsors]</a></li><li><a href=3D"https://adventofcode.com/2022/leaderboard">[L=
+eaderboard]</a></li><li><a href=3D"https://adventofcode.com/2022/stats">[St=
+ats]</a></li></ul></nav></div></header>
+
+<div id=3D"sidebar">
+<div id=3D"sponsor"><div class=3D"quiet">Our <a href=3D"https://adventofcod=
+e.com/2022/sponsors">sponsors</a> help make Advent of Code possible:</div><=
+div class=3D"sponsor"><a href=3D"https://www.retool.com/" target=3D"_blank"=
+ rel=3D"noopener">Retool</a> - Quickly build CRUD apps, admin panels, recur=
+ring jobs, and dashboards with JavaScript. Run in our cloud or yours. Free =
+for small teams.</div></div>
+</div><!--/sidebar-->
+
+<main>
+<article class=3D"day-desc"><h2>--- Day 11: Monkey in the Middle ---</h2><p=
+>As you finally start making your way upriver, you realize your pack is muc=
+h lighter than you remember. Just then, one of the items from your pack goe=
+s flying overhead. Monkeys are playing <a href=3D"https://en.wikipedia.org/=
+wiki/Keep_away" target=3D"_blank">Keep Away</a> with your missing things!</=
+p>
+<p>To get your stuff back, you need to be able to predict where the monkeys=
+ will throw your items. After some careful observation, you realize the mon=
+keys operate based on <em>how worried you are about each item</em>.</p>
+<p>You take some notes (your puzzle input) on the items each monkey current=
+ly has, how worried you are about those items, and how the monkey makes dec=
+isions based on your worry level. For example:</p>
+<pre><code>Monkey 0:
+  Starting items: 79, 98
+  Operation: new =3D old * 19
+  Test: divisible by 23
+    If true: throw to monkey 2
+    If false: throw to monkey 3
+
+Monkey 1:
+  Starting items: 54, 65, 75, 74
+  Operation: new =3D old + 6
+  Test: divisible by 19
+    If true: throw to monkey 2
+    If false: throw to monkey 0
+
+Monkey 2:
+  Starting items: 79, 60, 97
+  Operation: new =3D old * old
+  Test: divisible by 13
+    If true: throw to monkey 1
+    If false: throw to monkey 3
+
+Monkey 3:
+  Starting items: 74
+  Operation: new =3D old + 3
+  Test: divisible by 17
+    If true: throw to monkey 0
+    If false: throw to monkey 1
+</code></pre>
+<p>Each monkey has several attributes:</p>
+<ul>
+<li><code>Starting items</code> lists your <em>worry level</em> for each it=
+em the monkey is currently holding in the order they will be inspected.</li=
+>
+<li><code>Operation</code> shows how your worry level changes as that monke=
+y inspects an item. (An operation like <code>new =3D old * 5</code> means t=
+hat your worry level after the monkey inspected the item is five times what=
+ever your worry level was before inspection.)</li>
+<li><code>Test</code> shows how the monkey uses your worry level to decide =
+where to throw an item next.
+  <ul>
+  <li><code>If true</code> shows what happens with an item if the <code>Tes=
+t</code> was true.</li>
+  <li><code>If false</code> shows what happens with an item if the <code>Te=
+st</code> was false.</li>
+  </ul>
+</li>
+</ul>
+<p>After each monkey inspects an item but before it tests your worry level,=
+ your relief that the monkey's inspection didn't damage the item causes you=
+r worry level to be <em>divided by three</em> and rounded down to the neare=
+st integer.</p>
+<p>The monkeys take turns inspecting and throwing items. On a single monkey=
+'s <em>turn</em>, it inspects and throws all of the items it is holding one=
+ at a time and in the order listed. Monkey <code>0</code> goes first, then =
+monkey <code>1</code>, and so on until each monkey has had one turn. The pr=
+ocess of each monkey taking a single turn is called a <em>round</em>.</p>
+<p>When a monkey throws an item to another monkey, the item goes on the <em=
+>end</em> of the recipient monkey's list. A monkey that starts a round with=
+ no items could end up inspecting and throwing many items by the time its t=
+urn comes around. If a monkey is holding no items at the start of its turn,=
+ its turn ends.</p>
+<p>In the above example, the first round proceeds as follows:</p>
+<pre><code>Monkey 0:
+  Monkey inspects an item with a worry level of 79.
+    Worry level is multiplied by 19 to 1501.
+    Monkey gets bored with item. Worry level is divided by 3 to 500.
+    Current worry level is not divisible by 23.
+    Item with worry level 500 is thrown to monkey 3.
+  Monkey inspects an item with a worry level of 98.
+    Worry level is multiplied by 19 to 1862.
+    Monkey gets bored with item. Worry level is divided by 3 to 620.
+    Current worry level is not divisible by 23.
+    Item with worry level 620 is thrown to monkey 3.
+Monkey 1:
+  Monkey inspects an item with a worry level of 54.
+    Worry level increases by 6 to 60.
+    Monkey gets bored with item. Worry level is divided by 3 to 20.
+    Current worry level is not divisible by 19.
+    Item with worry level 20 is thrown to monkey 0.
+  Monkey inspects an item with a worry level of 65.
+    Worry level increases by 6 to 71.
+    Monkey gets bored with item. Worry level is divided by 3 to 23.
+    Current worry level is not divisible by 19.
+    Item with worry level 23 is thrown to monkey 0.
+  Monkey inspects an item with a worry level of 75.
+    Worry level increases by 6 to 81.
+    Monkey gets bored with item. Worry level is divided by 3 to 27.
+    Current worry level is not divisible by 19.
+    Item with worry level 27 is thrown to monkey 0.
+  Monkey inspects an item with a worry level of 74.
+    Worry level increases by 6 to 80.
+    Monkey gets bored with item. Worry level is divided by 3 to 26.
+    Current worry level is not divisible by 19.
+    Item with worry level 26 is thrown to monkey 0.
+Monkey 2:
+  Monkey inspects an item with a worry level of 79.
+    Worry level is multiplied by itself to 6241.
+    Monkey gets bored with item. Worry level is divided by 3 to 2080.
+    Current worry level is divisible by 13.
+    Item with worry level 2080 is thrown to monkey 1.
+  Monkey inspects an item with a worry level of 60.
+    Worry level is multiplied by itself to 3600.
+    Monkey gets bored with item. Worry level is divided by 3 to 1200.
+    Current worry level is not divisible by 13.
+    Item with worry level 1200 is thrown to monkey 3.
+  Monkey inspects an item with a worry level of 97.
+    Worry level is multiplied by itself to 9409.
+    Monkey gets bored with item. Worry level is divided by 3 to 3136.
+    Current worry level is not divisible by 13.
+    Item with worry level 3136 is thrown to monkey 3.
+Monkey 3:
+  Monkey inspects an item with a worry level of 74.
+    Worry level increases by 3 to 77.
+    Monkey gets bored with item. Worry level is divided by 3 to 25.
+    Current worry level is not divisible by 17.
+    Item with worry level 25 is thrown to monkey 1.
+  Monkey inspects an item with a worry level of 500.
+    Worry level increases by 3 to 503.
+    Monkey gets bored with item. Worry level is divided by 3 to 167.
+    Current worry level is not divisible by 17.
+    Item with worry level 167 is thrown to monkey 1.
+  Monkey inspects an item with a worry level of 620.
+    Worry level increases by 3 to 623.
+    Monkey gets bored with item. Worry level is divided by 3 to 207.
+    Current worry level is not divisible by 17.
+    Item with worry level 207 is thrown to monkey 1.
+  Monkey inspects an item with a worry level of 1200.
+    Worry level increases by 3 to 1203.
+    Monkey gets bored with item. Worry level is divided by 3 to 401.
+    Current worry level is not divisible by 17.
+    Item with worry level 401 is thrown to monkey 1.
+  Monkey inspects an item with a worry level of 3136.
+    Worry level increases by 3 to 3139.
+    Monkey gets bored with item. Worry level is divided by 3 to 1046.
+    Current worry level is not divisible by 17.
+    Item with worry level 1046 is thrown to monkey 1.
+</code></pre>
+<p>After round 1, the monkeys are holding items with these worry levels:</p=
+>
+<pre><code>Monkey 0: 20, 23, 27, 26
+Monkey 1: 2080, 25, 167, 207, 401, 1046
+Monkey 2:=20
+Monkey 3:=20
+</code></pre>
+<p>Monkeys 2 and 3 aren't holding any items at the end of the round; they b=
+oth inspected items during the round and threw them all before the round en=
+ded.</p>
+<p>This process continues for a few more rounds:</p>
+<pre><code>After round 2, the monkeys are holding items with these worry le=
+vels:
+Monkey 0: 695, 10, 71, 135, 350
+Monkey 1: 43, 49, 58, 55, 362
+Monkey 2:=20
+Monkey 3:=20
+
+After round 3, the monkeys are holding items with these worry levels:
+Monkey 0: 16, 18, 21, 20, 122
+Monkey 1: 1468, 22, 150, 286, 739
+Monkey 2:=20
+Monkey 3:=20
+
+After round 4, the monkeys are holding items with these worry levels:
+Monkey 0: 491, 9, 52, 97, 248, 34
+Monkey 1: 39, 45, 43, 258
+Monkey 2:=20
+Monkey 3:=20
+
+After round 5, the monkeys are holding items with these worry levels:
+Monkey 0: 15, 17, 16, 88, 1037
+Monkey 1: 20, 110, 205, 524, 72
+Monkey 2:=20
+Monkey 3:=20
+
+After round 6, the monkeys are holding items with these worry levels:
+Monkey 0: 8, 70, 176, 26, 34
+Monkey 1: 481, 32, 36, 186, 2190
+Monkey 2:=20
+Monkey 3:=20
+
+After round 7, the monkeys are holding items with these worry levels:
+Monkey 0: 162, 12, 14, 64, 732, 17
+Monkey 1: 148, 372, 55, 72
+Monkey 2:=20
+Monkey 3:=20
+
+After round 8, the monkeys are holding items with these worry levels:
+Monkey 0: 51, 126, 20, 26, 136
+Monkey 1: 343, 26, 30, 1546, 36
+Monkey 2:=20
+Monkey 3:=20
+
+After round 9, the monkeys are holding items with these worry levels:
+Monkey 0: 116, 10, 12, 517, 14
+Monkey 1: 108, 267, 43, 55, 288
+Monkey 2:=20
+Monkey 3:=20
+
+After round 10, the monkeys are holding items with these worry levels:
+Monkey 0: 91, 16, 20, 98
+Monkey 1: 481, 245, 22, 26, 1092, 30
+Monkey 2:=20
+Monkey 3:=20
+
+...
+
+After round 15, the monkeys are holding items with these worry levels:
+Monkey 0: 83, 44, 8, 184, 9, 20, 26, 102
+Monkey 1: 110, 36
+Monkey 2:=20
+Monkey 3:=20
+
+...
+
+After round 20, the monkeys are holding items with these worry levels:
+Monkey 0: 10, 12, 14, 26, 34
+Monkey 1: 245, 93, 53, 199, 115
+Monkey 2:=20
+Monkey 3:=20
+</code></pre>
+<p>Chasing all of the monkeys at once is impossible; you're going to have t=
+o focus on the <em>two most active</em> monkeys if you want any hope of get=
+ting your stuff back. Count the <em>total number of times each monkey inspe=
+cts items</em> over 20 rounds:</p>
+<pre><code><em>Monkey 0 inspected items 101 times.</em>
+Monkey 1 inspected items 95 times.
+Monkey 2 inspected items 7 times.
+<em>Monkey 3 inspected items 105 times.</em>
+</code></pre>
+<p>In this example, the two most active monkeys inspected items 101 and 105=
+ times. The level of <em>monkey business</em> in this situation can be foun=
+d by multiplying these together: <code><em>10605</em></code>.</p>
+<p>Figure out which monkeys to chase by counting how many items they inspec=
+t over 20 rounds. <em>What is the level of monkey business after 20 rounds =
+of stuff-slinging simian shenanigans?</em></p>
+</article>
+<p>To begin, <a href=3D"https://adventofcode.com/2022/day/11/input" target=
+=3D"_blank">get your puzzle input</a>.</p>
+<form method=3D"post" action=3D"https://adventofcode.com/2022/day/11/answer=
+"><p>Answer: <input type=3D"text" name=3D"answer" autocomplete=3D"off"> <in=
+put type=3D"submit" value=3D"[Submit]"></p></form>
+<p>You can also <span class=3D"share">[Share<span class=3D"share-content">o=
+n
+  <a href=3D"https://twitter.com/intent/tweet?text=3D%22Monkey+in+the+Middl=
+e%22+%2D+Day+11+%2D+Advent+of+Code+2022&amp;url=3Dhttps%3A%2F%2Fadventofcod=
+e%2Ecom%2F2022%2Fday%2F11&amp;related=3Dericwastl&amp;hashtags=3DAdventOfCo=
+de" target=3D"_blank">Twitter</a>
+  <a target=3D"_blank">Mastodon</a></span>]</span> this puzzle.</p>
+</main>
+
+<!-- ga -->
+
+<!-- /ga -->
+
+<div><div></div><div></div><div></div><div style=3D"display: flex; flex-flo=
+w: row wrap;"></div></div></body></html>
+------MultipartBoundary--h4mZxXGGaN61rHhq6CBHzMSI8KrbjA7vKBdABGZHOq----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://fonts.googleapis.com/css?family=Source+Code+Pro:300&subset=latin,latin-ext
+
+@charset "utf-8";
+
+@font-face { font-family: "Source Code Pro"; font-style: normal; font-weigh=
+t: 300; src: url("https://fonts.gstatic.com/s/sourcecodepro/v22/HI_diYsKILx=
+Rpg3hIP6sJ7fM7PqPMcMnZFqUwX28DJKQtMRrTFcZZJmOpwVS.woff2") format("woff2"); =
+unicode-range: U+460-52F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+=
+FE2E-FE2F; }
+
+@font-face { font-family: "Source Code Pro"; font-style: normal; font-weigh=
+t: 300; src: url("https://fonts.gstatic.com/s/sourcecodepro/v22/HI_diYsKILx=
+Rpg3hIP6sJ7fM7PqPMcMnZFqUwX28DJKQtM1rTFcZZJmOpwVS.woff2") format("woff2"); =
+unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+@font-face { font-family: "Source Code Pro"; font-style: normal; font-weigh=
+t: 300; src: url("https://fonts.gstatic.com/s/sourcecodepro/v22/HI_diYsKILx=
+Rpg3hIP6sJ7fM7PqPMcMnZFqUwX28DJKQtMVrTFcZZJmOpwVS.woff2") format("woff2"); =
+unicode-range: U+1F00-1FFF; }
+
+@font-face { font-family: "Source Code Pro"; font-style: normal; font-weigh=
+t: 300; src: url("https://fonts.gstatic.com/s/sourcecodepro/v22/HI_diYsKILx=
+Rpg3hIP6sJ7fM7PqPMcMnZFqUwX28DJKQtMprTFcZZJmOpwVS.woff2") format("woff2"); =
+unicode-range: U+370-3FF; }
+
+@font-face { font-family: "Source Code Pro"; font-style: normal; font-weigh=
+t: 300; src: url("https://fonts.gstatic.com/s/sourcecodepro/v22/HI_diYsKILx=
+Rpg3hIP6sJ7fM7PqPMcMnZFqUwX28DJKQtMZrTFcZZJmOpwVS.woff2") format("woff2"); =
+unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF=
+-1B0, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: "Source Code Pro"; font-style: normal; font-weigh=
+t: 300; src: url("https://fonts.gstatic.com/s/sourcecodepro/v22/HI_diYsKILx=
+Rpg3hIP6sJ7fM7PqPMcMnZFqUwX28DJKQtMdrTFcZZJmOpwVS.woff2") format("woff2"); =
+unicode-range: U+100-24F, U+259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-2=
+0CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: "Source Code Pro"; font-style: normal; font-weigh=
+t: 300; src: url("https://fonts.gstatic.com/s/sourcecodepro/v22/HI_diYsKILx=
+Rpg3hIP6sJ7fM7PqPMcMnZFqUwX28DJKQtMlrTFcZZJmOpw.woff2") format("woff2"); un=
+icode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+20=
+00-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+=
+FFFD; }
+------MultipartBoundary--h4mZxXGGaN61rHhq6CBHzMSI8KrbjA7vKBdABGZHOq----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://adventofcode.com/static/style.css?30
+
+@charset "utf-8";
+
+body { background: rgb(15, 15, 35); color: rgb(204, 204, 204); font-family:=
+ "Source Code Pro", monospace; font-size: 14pt; min-width: 60em; }
+
+img { border: 0px; }
+
+a { outline: 0px; }
+
+main, figure, figcaption { display: block; }
+
+pre, code { font-family: "Source Code Pro", monospace; }
+
+header, main { text-size-adjust: none; }
+
+a { text-decoration: none; color: rgb(0, 153, 0); }
+
+a:hover, a:focus { color: rgb(153, 255, 153); }
+
+h1, h2 { font-size: 1em; font-weight: normal; }
+
+code { position: relative; display: inline-block; margin: 0px; padding: 0px=
+; }
+
+code::before { z-index: -1; content: ""; position: absolute; display: block=
+; inset: 3px -2px 0px; border: 1px solid rgb(51, 51, 64); background: rgb(1=
+6, 16, 26); }
+
+pre.wrap { max-width: 100%; white-space: pre-wrap; }
+
+.quiet { opacity: 0.5; }
+
+p.wrap { width: 45em; }
+
+.hidden-until-hover { border: 1px dotted gray; overflow: hidden; position: =
+relative; padding: 0px 0.5em; transition: border-color 0s linear 5s; }
+
+.hidden-until-hover::before { content: "(hover to reveal)"; position: absol=
+ute; opacity: 0.5; text-align: center; left: 0px; top: 0px; width: 100%; ov=
+erflow: hidden; transition: width 0s linear 5s; }
+
+.hidden-until-hover > * { visibility: hidden; transition: visibility 0s lin=
+ear 5s; }
+
+.hidden-until-hover:hover { transition: border-color 0s linear 1s; border-c=
+olor: transparent; }
+
+.hidden-until-hover:hover::before { content: "( keep hovering )"; transitio=
+n: width 0s linear 1s; width: 0px; }
+
+.hidden-until-hover:hover > * { transition: visibility 0s linear 1s; visibi=
+lity: visible; }
+
+.warning:not(.warning-active) { transition: color 1s ease 0s, opacity 1s ea=
+se 0s; }
+
+.warning-active { color: rgb(255, 0, 0); opacity: 1; }
+
+.star-count { color: rgb(255, 255, 102); }
+
+.supporter-badge { color: rgb(255, 255, 102); }
+
+a.supporter-badge:hover, a.supporter-badge:focus { text-decoration: none; c=
+olor: rgb(255, 255, 204); text-shadow: rgb(255, 255, 102) 0px 0px 5px; }
+
+.sponsor-badge { color: rgb(121, 162, 216); }
+
+a.sponsor-badge:hover, a.sponsor-badge:focus { text-decoration: none; color=
+: rgb(204, 219, 237); text-shadow: rgb(121, 162, 216) 0px 0px 5px; }
+
+#sidebar { width: 200px; float: right; margin: 0px 15px 2em 2em; position: =
+relative; z-index: 10; }
+
+#sponsor { margin-bottom: 2.5em; }
+
+header { white-space: nowrap; cursor: default; z-index: 100; margin-bottom:=
+ 2em; }
+
+header h1 { display: inline-block; margin: 0px; padding-right: 1em; }
+
+header h1 a, header h1 span { display: inline-block; text-decoration: none;=
+ color: rgb(0, 204, 0); text-shadow: rgb(0, 204, 0) 0px 0px 2px, rgb(0, 204=
+, 0) 0px 0px 5px; }
+
+header h1 a:hover, header h1 a:focus { color: rgb(153, 255, 153); text-shad=
+ow: rgb(153, 255, 153) 0px 0px 2px, rgb(153, 255, 153) 0px 0px 5px; }
+
+header h1.title-event .title-event-wrap { opacity: 0.33; white-space: pre; =
+}
+
+header .user { display: inline-block; padding-left: 1em; }
+
+header nav { display: inline-block; }
+
+header nav ul { list-style-type: none; padding: 0px; margin: 0px; display: =
+inline-block; }
+
+header nav li { display: inline-block; padding: 0px 0.6em; }
+
+header nav a { display: inline-block; text-decoration: none; outline: none;=
+ }
+
+input[type=3D"text"], textarea { color: inherit; border: 1px solid rgb(102,=
+ 102, 102); background: rgb(16, 16, 26); padding: 0px 2px; font-family: inh=
+erit; font-size: inherit; margin: 0px; }
+
+textarea { vertical-align: top; }
+
+label img { vertical-align: bottom; position: relative; top: -3px; margin-r=
+ight: 0.3em; }
+
+input[type=3D"radio"] { display: none; }
+
+input[type=3D"radio"] ~ span { cursor: pointer; display: inline-block; }
+
+input[type=3D"radio"] ~ span::before { content: "( ) "; }
+
+input[type=3D"radio"] ~ span:hover, input[type=3D"radio"] ~ span:focus { ba=
+ckground-color: rgb(25, 25, 59); }
+
+input[type=3D"radio"]:checked ~ span { color: rgb(255, 255, 255); }
+
+input[type=3D"radio"]:checked ~ span::before { content: "(O) "; }
+
+input[type=3D"checkbox"] { display: none; }
+
+input[type=3D"checkbox"] ~ span { cursor: pointer; display: inline-block; }
+
+input[type=3D"checkbox"] ~ span::before { content: "[ ] "; }
+
+input[type=3D"checkbox"] ~ span:hover, input[type=3D"checkbox"] ~ span:focu=
+s { background-color: rgb(25, 25, 59); }
+
+input[type=3D"checkbox"]:checked ~ span { color: rgb(255, 255, 255); }
+
+input[type=3D"checkbox"]:checked ~ span::before { content: "[X] "; }
+
+input[type=3D"checkbox"]:disabled ~ span { opacity: 0.3; cursor: default; }
+
+input[type=3D"checkbox"]:disabled ~ span::before { content: "[-] "; }
+
+input[type=3D"checkbox"]:disabled ~ span:hover { background-color: transpar=
+ent; }
+
+input[type=3D"submit"] { background: transparent; border: 0px; font-family:=
+ inherit; font-size: inherit; margin: 0px; padding: 0px; color: rgb(0, 153,=
+ 0); cursor: pointer; }
+
+input[type=3D"submit"]:hover, input[type=3D"submit"]:focus { color: rgb(153=
+, 255, 153); }
+
+article { width: 45em; margin-bottom: 2em; margin-top: 2em; }
+
+article:first-of-type { margin-top: 0px; }
+
+article h2 { color: rgb(255, 255, 255); margin-top: 1em; margin-bottom: 1em=
+; white-space: nowrap; }
+
+article h2 + * { margin-top: 0px; }
+
+article em { color: rgb(255, 255, 255); font-style: normal; text-shadow: rg=
+b(255, 255, 255) 0px 0px 5px; }
+
+article em.star { color: rgb(255, 255, 102); font-style: normal; text-shado=
+w: rgb(255, 255, 102) 0px 0px 5px; }
+
+article a { white-space: nowrap; }
+
+article .aside { opacity: 0.6; }
+
+article ul { list-style-type: none; padding: 0px; }
+
+article li { padding-left: 2.5em; position: relative; }
+
+article li::before { content: "=C2=A0=C2=A0-=C2=A0"; position: absolute; le=
+ft: 0px; top: 0px; }
+
+.day-success { color: rgb(255, 255, 102); text-shadow: rgb(255, 255, 102) 0=
+px 0px 5px; }
+
+form#settings input[type=3D"radio"] ~ span { min-width: 30em; }
+
+form#settings input[type=3D"checkbox"] ~ span { min-width: 30em; }
+
+.share { color: rgb(0, 153, 0); cursor: default; transition: color 0.2s eas=
+e 1s; }
+
+.share:hover, .share:focus-within { color: rgb(170, 255, 170); transition: =
+color 0.2s ease 0s; }
+
+.share .share-content { display: inline-block; vertical-align: text-bottom;=
+ white-space: nowrap; overflow: hidden; max-width: 0px; transition: max-wid=
+th 0.2s ease 1s; }
+
+.share .share-content::before { content: "=C2=A0"; }
+
+.share .share-content::after { }
+
+.share:hover .share-content, .share:focus-within .share-content { max-width=
+: 45em; transition: max-width 0.2s ease 0s; }
+
+.puzzle-input { border: 1px solid rgb(153, 153, 153); background: rgb(51, 5=
+1, 51); color: rgb(255, 255, 255); text-shadow: rgb(255, 255, 255) 0px 0px =
+5px; }
+
+.calendar { cursor: default; user-select: none; }
+
+.calendar > span { color: rgb(51, 51, 51); }
+
+.calendar > a { text-decoration: none; color: rgb(102, 102, 102); outline: =
+none; cursor: default; }
+
+.calendar a:hover, .calendar a:focus { background-color: rgba(119, 119, 165=
+, 0.2); cursor: pointer; }
+
+#calendar-countdown { padding-left: 0.5em; color: rgb(204, 204, 204); }
+
+.calendar .calendar-day { color: rgb(102, 102, 102); }
+
+.calendar a .calendar-day { color: rgb(204, 204, 204); }
+
+.calendar a .calendar-mark-complete, .calendar a .calendar-mark-verycomplet=
+e { visibility: hidden; }
+
+.calendar a.calendar-complete .calendar-mark-complete, .calendar a.calendar=
+-verycomplete .calendar-mark-complete { visibility: visible; color: rgb(255=
+, 255, 102); }
+
+.calendar a.calendar-verycomplete .calendar-mark-verycomplete { visibility:=
+ visible; color: rgb(255, 255, 102); }
+
+.calendar .calendar-day-new { animation: 5s ease 0s 1 normal none running a=
+nim-day-new; }
+
+.calendar .calendar-day-new .calendar-day { animation: 5s ease 0s 1 normal =
+none running anim-day-new-day; }
+
+@keyframes anim-day-new {=20
+  0% { color: rgb(51, 51, 51); text-shadow: transparent 0px 0px 5px; }
+  25% { color: rgb(255, 255, 255); text-shadow: rgb(255, 255, 255) 0px 0px =
+5px; }
+  100% { color: rgb(102, 102, 102); text-shadow: transparent 0px 0px 5px; }
+}
+
+@keyframes anim-day-new-day {=20
+  0% { color: rgb(102, 102, 102); text-shadow: transparent 0px 0px 5px; }
+  25% { color: rgb(255, 255, 255); text-shadow: rgb(255, 255, 255) 0px 0px =
+5px; }
+  100% { color: rgb(204, 204, 204); text-shadow: transparent 0px 0px 5px; }
+}
+
+.eventlist-event { white-space: pre; }
+
+.stats > span, .stats > span .stats-firstonly, .stats > span .stats-both { =
+color: rgb(102, 102, 102); }
+
+.stats > a { color: rgb(204, 204, 204); min-width: 35em; display: inline-bl=
+ock; }
+
+.stats > a:hover, .stats > a:focus { background-color: rgb(30, 30, 70); }
+
+.stats-firstonly { color: rgb(153, 153, 204); }
+
+.stats-both { color: rgb(255, 255, 102); }
+
+.leaderboard-daylinks { cursor: default; }
+
+.leaderboard-daylinks-selected { color: rgb(255, 255, 255); text-shadow: rg=
+b(255, 255, 255) 0px 0px 5px; }
+
+.leaderboard-daydesc-first { color: rgb(153, 153, 204); }
+
+.leaderboard-daydesc-both { color: rgb(255, 255, 102); }
+
+.leaderboard-entry { white-space: pre; }
+
+.leaderboard-entry .leaderboard-totalscore { color: rgb(255, 255, 255); }
+
+.leaderboard-anon { opacity: 0.6; }
+
+.leaderboard-userphoto { display: inline-block; height: 20px; width: 20px; =
+margin: 0px 0.5em; text-align: center; }
+
+.leaderboard-userphoto img { height: 20px; max-width: 20px; vertical-align:=
+ middle; position: relative; top: -2px; }
+
+.leaderboard-time { opacity: 0.5; }
+
+.privboard-row { white-space: pre; }
+
+.privboard-name { vertical-align: text-bottom; }
+
+.privboard-days > span { display: inline-block; color: rgb(51, 51, 51); }
+
+.privboard-days > a { display: inline-block; }
+
+.privboard-star-locked { visibility: hidden; }
+
+.privboard-star-unlocked { color: rgb(51, 51, 51); }
+
+.privboard-star-firstonly { color: rgb(153, 153, 204); }
+
+.privboard-star-both { color: rgb(255, 255, 102); }
+
+.privboard-delbtn { opacity: 0.33; }
+
+.privboard-row:hover .privboard-delbtn { opacity: 1; }
+
+.sponsors { width: 46em; }
+
+.sponsor { margin: 1em 0px; }
+------MultipartBoundary--h4mZxXGGaN61rHhq6CBHzMSI8KrbjA7vKBdABGZHOq----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://adventofcode.com/static/highcontrast.css?0
+
+@charset "utf-8";
+
+* { background: white !important; color: black !important; text-shadow: non=
+e !important; }
+
+a { color: rgb(0, 0, 255) !important; text-decoration: underline !important=
+; }
+
+em { font-weight: 900 !important; }
+------MultipartBoundary--h4mZxXGGaN61rHhq6CBHzMSI8KrbjA7vKBdABGZHOq------
